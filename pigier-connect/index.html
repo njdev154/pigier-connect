@@ -1,0 +1,549 @@
+﻿<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pigier Yopougon : formations orientées métier (BTS, Licence), encadrement sérieux et insertion professionnelle à Abidjan." />
+    <title>Pigier Connect | Pigier Yopougon — Formations et Inscription</title>
+    <!-- Petite icone affichee dans l'onglet du navigateur -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- Polices Google Fonts : Poppins pour les titres, Lato pour le texte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <!-- ============================================================
+       EN-TETE / NAVIGATION
+       Reste fixe en haut de la page (position: sticky, voir CSS)
+       pour qu'on puisse naviguer facilement d'une section a l'autre.
+  ============================================================ -->
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="logo" href="#accueil">
+          <img src="logo2.png" alt="Logo de pigier" />
+        </a>
+        <!-- Les liens du menu pointent vers les id des sections plus bas dans la page -->
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="#formations">Formations</a>
+          <a href="#eleves">Meilleurs élèves</a>
+          <a href="#evenements">Événements</a>
+          <a href="#resultats">Résultats</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn btn-primary btn-preinscription" href="#contact">Préinscription</a>
+        <!-- Bouton menu burger, visible seulement sur mobile (voir CSS) -->
+        <button class="burger" id="burger-btn" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="accueil">
+      <!-- ============================================================
+         SECTION HERO (bandeau d'accueil)
+         Texte de presentation a gauche, video de presentation a droite.
+         Utilise Flexbox (.hero-grid dans le CSS) pour mettre les deux
+         blocs cote a cote, et l'un en dessous de l'autre sur mobile.
+    ============================================================ -->
+      <section class="hero section">
+        <div class="container hero-grid">
+          <div>
+            <a class="hero-email" href="#contact">pigierci@pigierci.com</a>
+            <p class="badge">Universite des metiers</p>
+            <h1>Ton avenir professionnel commence a Pigier Yopougon</h1>
+            <p class="lead">
+              Des formations orientees metier, un encadrement serieux et des
+              resultats concrets pour t'aider a reussir tes etudes et ton
+              insertion professionnelle.
+            </p>
+
+            <div class="actions">
+              <a class="btn btn-primary" href="#formations"
+                >Voir les formations</a
+              >
+              <a class="btn btn-ghost" href="#contact">Je me preinscris</a>
+            </div>
+          </div>
+
+          <!-- Video de presentation de l'ecole -->
+          <div
+            class="media-card"
+            aria-label="Presentation video de Pigier Yopougon"
+          >
+            <video controls preload="metadata">
+              <source src="video/video1.mp4" type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture video HTML5.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION "POURQUOI CHOISIR PIGIER"
+         4 cartes cote a cote (cards-4 en CSS = display: flex + wrap,
+         pour qu'elles passent a la ligne automatiquement sur petit ecran)
+    ============================================================ -->
+      <section class="section alt">
+        <div class="container">
+          <h2>Pourquoi choisir Pigier Yopougon ?</h2>
+          <div class="cards-4">
+            <article class="card">
+              <h3>Formations professionnalisantes</h3>
+              <p>
+                Des programmes concus selon les besoins reels des entreprises.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Encadrement de proximite</h3>
+              <p>Un suivi personnalise pour accompagner chaque etudiant.</p>
+            </article>
+            <article class="card">
+              <h3>Experience pratique</h3>
+              <p>
+                Projets, stages, ateliers et activites pour apprendre en
+                faisant.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Insertion facilitee</h3>
+              <p>
+                Un meilleur pont entre les etudes et le monde professionnel.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION FORMATIONS
+         Meme principe de cartes que la section precedente, mais avec
+         7 filieres cette fois. Le id="formations" permet au menu du
+         haut de scroller directement ici.
+    ============================================================ -->
+      <section id="formations" class="section">
+        <div class="container">
+          <h2>Nos meilleures formations</h2>
+          <p class="section-intro">
+            Decouvre nos filieres les plus demandees a Pigier Yopougon.
+          </p>
+
+          <!-- Champ de recherche : filtre les cartes ci-dessous via script.js -->
+          <input
+            type="text"
+            id="formation-search"
+            class="search-input"
+            placeholder="Rechercher une formation (ex : marketing, informatique...)"
+          />
+
+          <div class="cards-4" id="formations-grid">
+            <article class="card" data-title="Tourisme et Hotellerie">
+              <h3>Tourisme et Hotellerie</h3>
+              <p>
+                Formation orientee vers l'accueil, la gestion hoteliere et les
+                metiers du tourisme.
+              </p>
+            </article>
+            <article class="card" data-title="Gestion Commerciale">
+              <h3>Gestion Commerciale</h3>
+              <p>
+                Developpe les competences en vente, relation client et strategie
+                commerciale.
+              </p>
+            </article>
+            <article class="card" data-title="Assistanat de Direction">
+              <h3>Assistanat de Direction</h3>
+              <p>
+                Preparation aux fonctions d'organisation, de suivi administratif
+                et d'appui managerial.
+              </p>
+            </article>
+            <article class="card" data-title="Informatique Developpeur d'Application">
+              <h3>Informatique Developpeur d'Application</h3>
+              <p>
+                Conception d'applications, bases du developpement web et outils
+                numeriques.
+              </p>
+            </article>
+            <article class="card" data-title="Ressources Humaines et Communication">
+              <h3>Ressources Humaines et Communication</h3>
+              <p>
+                Gestion du personnel, communication interne et pratiques RH
+                adaptees aux entreprises.
+              </p>
+            </article>
+            <article class="card" data-title="Finance Comptabilite et Gestion d'Entreprise">
+              <h3>Finance Comptabilite et Gestion d'Entreprise</h3>
+              <p>
+                Comptabilite, analyse financiere et pilotage des activites de
+                l'entreprise.
+              </p>
+            </article>
+            <article class="card" data-title="Marketing">
+              <h3>Marketing</h3>
+              <p>
+                Etude de marche, strategie de communication et promotion des
+                offres.
+              </p>
+            </article>
+          </div>
+
+          <!-- Message affiché quand la recherche ne donne aucun résultat -->
+          <p id="no-results" class="no-results" style="display: none;">
+            Aucune formation ne correspond à ta recherche.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION MEILLEURS ELEVES
+         3 temoignages presentes comme des cartes (cards-3 = memes
+         cartes que cards-4, juste une taille flex differente en CSS
+         pour qu'il y en ait 3 par ligne au lieu de 4)
+    ============================================================ -->
+      <section id="eleves" class="section alt">
+        <div class="container">
+          <h2>Nos meilleurs eleves</h2>
+          <div class="cards-3">
+            <article class="card profile">
+              <h3>Minycan K. - Major en IDA</h3>
+              <p>
+                "Pigier m'a aidee a prendre confiance et a viser l'excellence."
+              </p>
+            </article>
+            <article class="card profile">
+              <h3>Koffi M. - Distinction en Marketing</h3>
+              <p>
+                "Les projets pratiques m'ont prepare a la realite du terrain."
+              </p>
+            </article>
+            <article class="card profile">
+              <h3>Junior N. - Meilleure progression RH</h3>
+              <p>"Le suivi des enseignants a fait toute la difference."</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION EVENEMENTS
+         D'abord 3 cartes de description, puis en dessous les videos
+         correspondantes dans des cartes separees (.event-videos).
+         Les videos sont en "muted" + "data-hover-play" pour un futur
+         effet de lecture au survol en JavaScript (pas encore fait ici).
+    ============================================================ -->
+      <section id="evenements" class="section">
+        <div class="container">
+          <h2>Meilleurs evenements</h2>
+          <div class="cards-3">
+            <article class="card">
+              <h3>Journee Portes Ouvertes</h3>
+              <p>
+                Decouverte des filieres, rencontres avec l'equipe et visite du
+                campus.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Participation a une Emission Televisee</h3>
+              <p>
+                Intervention des clubs Communication, Entrepreneuriat et
+                Informatique pour presenter leurs projets et leurs talents.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Journee de l'Orientation Bachelier</h3>
+              <p>
+                Accompagnement des nouveaux bacheliers pour choisir la bonne
+                filiere et preparer leur admission.
+              </p>
+            </article>
+          </div>
+
+          <!--
+          VIDEOS DES EVENEMENTS:
+          - Place tes videos dans le dossier du projet.
+        -->
+          <div class="event-videos">
+            <article class="video-card">
+              <h3>Video - Journee Portes Ouvertes</h3>
+              <video controls preload="metadata" muted data-hover-play>
+                <source src="video/video2.mp4" type="video/mp4" />
+                Votre navigateur ne prend pas en charge la lecture video HTML5.
+              </video>
+            </article>
+
+            <article class="video-card">
+              <h3>Video - Emission Televisee des Clubs</h3>
+              <video controls preload="metadata" muted data-hover-play>
+                <source src="video/video4.mp4" type="video/mp4" />
+                Votre navigateur ne prend pas en charge la lecture video HTML5.
+              </video>
+            </article>
+
+            <article class="video-card">
+              <h3>Video - Journee de l'Orientation Bachelier</h3>
+              <video controls preload="metadata" muted data-hover-play>
+                <source src="video/video3.mp4" type="video/mp4" />
+                Votre navigateur ne prend pas en charge la lecture video HTML5.
+              </video>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION RESULTATS
+         4 chiffres cles mis en avant. Le fond bleu fonce (.stat-card)
+         est defini en CSS pour bien faire ressortir les chiffres.
+    ============================================================ -->
+      <section id="resultats" class="section alt">
+        <div class="container">
+          <h2>Des resultats concrets</h2>
+          <div class="stats">
+            <article class="stat-card">
+              <p class="stat-number">92%</p>
+              <p class="stat-label">Taux de reussite</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-number">87%</p>
+              <p class="stat-label">Insertion professionnelle</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-number">1200+</p>
+              <p class="stat-label">Diplomes accompagnes</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-number">35+</p>
+              <p class="stat-label">Partenaires</p>
+            </article>
+          </div>
+          <!--
+          IMPORTANT:
+          Remplace ces chiffres par les vraies statistiques de Pigier Yopougon.
+        --></div>
+      </section>
+
+      <!-- ============================================================
+         SECTION FAQ
+         Chaque question est un bouton : cliquer dessus affiche ou
+         cache la reponse juste en dessous (voir script.js).
+    ============================================================ -->
+      <section id="faq" class="section alt">
+        <div class="container">
+          <h2>Questions frequentes</h2>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question">
+                Quelles sont les conditions d'admission ?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  L'admission se fait sur dossier (niveau Bac ou equivalent
+                  selon la filiere) et un entretien de motivation avec l'equipe
+                  pedagogique.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Combien de temps dure une formation ?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Cela depend de la filiere et du diplome vise (BTS, Licence) :
+                  compte generalement entre 2 et 3 ans.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Y a-t-il un accompagnement pour trouver un stage ?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Oui, l'ecole accompagne les etudiants dans leur recherche de
+                  stage grace a son reseau de partenaires entreprises.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Comment se preinscrire ?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>
+                  En remplissant le formulaire en bas de cette page, ou en
+                  contactant directement l'ecole par telephone ou WhatsApp.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SECTION CONTACT / APPEL A L'ACTION FINAL
+         Texte + coordonnees a gauche, formulaire de preinscription a
+         droite (cta-grid, encore du Flexbox pour la mise en page).
+         Le formulaire est uniquement cote HTML : il ne bascule pas
+         encore les donnees quelque part (voir commentaire plus bas).
+    ============================================================ -->
+      <section id="contact" class="section cta">
+        <div class="container cta-grid">
+          <div class="cta-texte">
+            <h2>Prêt(e) à rejoindre Pigier Yopougon ?</h2>
+            <p>
+              Fais le premier pas dès aujourd'hui. Notre équipe peut t'aider à
+              choisir ta filière et lancer ta préinscription.
+            </p>
+
+            <!-- Coordonnees avec petites icones pour aerer et hierarchiser visuellement -->
+            <ul class="contact-infos">
+              <li>
+                <span class="contact-icone">📞</span
+                ><strong>Téléphone :</strong> +225 01 61 50 62 96
+              </li>
+              <li>
+                <span class="contact-icone">💬</span
+                ><strong>WhatsApp :</strong> +225 01 00 29 25 73
+              </li>
+              <li>
+                <span class="contact-icone">📍</span
+                ><strong>Adresse :</strong> Yopougon, Abidjan
+              </li>
+            </ul>
+
+            <!-- Badges de confiance : rassurent rapidement sans lire tout le texte -->
+            <div class="badges-confiance">
+              <span class="badge-confiance">✓ Inscription rapide</span>
+              <span class="badge-confiance">✓ Accompagnement personnalisé</span>
+              <span class="badge-confiance">✓ Diplômes homologués</span>
+            </div>
+
+            <!-- Carte Google Maps pour localiser l'ecole -->
+            <!-- Coordonnees exactes de PIGIER Cote d'Ivoire, Antenne Yopougon -->
+            <div class="map-wrapper">
+              <iframe
+                src="https://www.google.com/maps?q=5.3623734,-4.0914334&z=17&output=embed"
+                width="100%"
+                height="220"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Localisation de Pigier Yopougon sur Google Maps"
+              ></iframe>
+            </div>
+          </div>
+
+          <!--
+          Formulaire de preinscription.
+          Sans backend, on ne peut pas encore envoyer un vrai email :
+          le JS (script.js) affiche juste une confirmation a l'ecran.
+          Pour un envoi reel plus tard : service gratuit type Formspree
+          (il suffit de changer l'attribut "action" du formulaire).
+        -->
+          <form id="contact-form" class="contact-form" action="#" method="post">
+            <label for="nom">Nom complet</label>
+            <input
+              id="nom"
+              name="nom"
+              type="text"
+              placeholder="Ex : Kouassi Aya"
+              required
+            />
+
+            <label for="tel">Téléphone</label>
+            <input
+              id="tel"
+              name="telephone"
+              type="tel"
+              placeholder="Ex : +225 01 02 03 04 05"
+              required
+            />
+
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Ex : nom@email.com"
+              required
+            />
+
+            <label for="formation">Formation souhaitée</label>
+            <select id="formation" name="formation" required>
+              <option value="" selected disabled>Choisis une filière</option>
+              <option value="Tourisme et Hotellerie">
+                Tourisme et Hôtellerie
+              </option>
+              <option value="Gestion Commerciale">Gestion Commerciale</option>
+              <option value="Assistanat de Direction">
+                Assistanat de Direction
+              </option>
+              <option value="Informatique Developpeur d'Application">
+                Informatique Développeur d'Application
+              </option>
+              <option value="Ressources Humaines et Communication">
+                Ressources Humaines et Communication
+              </option>
+              <option value="Finance Comptabilite et Gestion d'Entreprise">
+                Finance Comptabilité et Gestion d'Entreprise
+              </option>
+              <option value="Marketing">Marketing</option>
+            </select>
+
+            <label for="message">Message (optionnel)</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Une question avant de te préinscrire ?"
+            ></textarea>
+
+            <button class="btn btn-primary btn-form" type="submit">
+              Lancer ma préinscription
+            </button>
+            <p class="reassurance">
+              Gratuit et sans engagement • Réponse sous 24h
+            </p>
+          </form>
+
+          <!-- Message affiché par le JS une fois le formulaire validé -->
+          <div id="contact-success" class="contact-success" style="display: none;">
+            <p class="badge">Préinscription reçue</p>
+            <h3>Merci <span id="success-nom"></span> !</h3>
+            <p>
+              Ta demande a bien été enregistrée. Notre équipe te contactera
+              sous 24h pour la suite de ton inscription.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--PIED DE PAGE -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Pigier Yopougon - Tous droits réservés.</p>
+        <a class="back-to-top" href="#accueil">Retour en haut</a>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

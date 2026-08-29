@@ -1,0 +1,703 @@
+﻿/* ============================================================
+   VARIABLES CSS (custom properties)
+   Je definis mes couleurs et valeurs recurrentes une seule fois ici,
+   puis je les reutilise partout avec var(--nom). Comme ca, si je veux
+   changer une couleur, je la change a un seul endroit.
+============================================================ */
+:root {
+  --bg: #f7f8fb;
+  --surface: #fffdf3;
+  --surface-alt: #fff8dc;
+  --text: #1c2431;
+  --muted: #4c5a70;
+  --primary: #0a3d91;
+  --primary-hover: #072d6c;
+  --accent: #f7a600;
+  --shadow: 0 8px 24px rgba(12, 33, 70, 0.12);
+  --radius: 14px;
+}
+
+/* box-sizing: border-box sur tous les elements : ca evite les mauvaises
+   surprises de largeur quand j'ajoute du padding ou une bordure */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* pour un defilement doux quand on clique sur un lien du menu (#formations, #contact, etc.) */
+}
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #fffef8 0%, #fff7d6 100%);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.25;
+}
+
+/* clamp(min, valeur-preferee, max) : la taille du texte s'adapte a la
+   largeur de l'ecran tout en restant dans une fourchette raisonnable.
+   Ca evite d'avoir a ecrire plusieurs media queries juste pour ca. */
+h1 {
+  font-size: clamp(1.9rem, 2.8vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+/* .container centre le contenu et l'empeche de toucher les bords
+   de l'ecran sur les grands ecrans (max 1100px de large) */
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.section {
+  padding: 70px 0;
+}
+
+.alt {
+  background: var(--surface-alt);
+}
+
+/* ============================================================
+   EN-TETE / NAVIGATION
+============================================================ */
+.site-header {
+  position: sticky; /* reste colle en haut meme quand on scrolle */
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(10, 61, 145, 0.1);
+}
+
+/* Flexbox : aligne le logo, le menu et le bouton sur une meme ligne,
+   avec de l'espace reparti entre les deux extremites */
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+  position: relative;
+}
+
+.logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+}
+
+.logo img {
+  display: block;
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Flexbox encore ici, avec flex-wrap pour que les liens du menu
+   passent a la ligne si l'ecran est trop petit plutot que de deborder */
+.nav {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.nav a:hover {
+  color: var(--primary);
+}
+
+/* Bouton burger : caché sur ordinateur, affiché seulement sur mobile */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.burger span {
+  width: 24px;
+  height: 2px;
+  background: var(--primary);
+}
+
+/* ============================================================
+   BOUTONS
+============================================================ */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-ghost:hover {
+  background: rgba(10, 61, 145, 0.08);
+}
+
+/* ============================================================
+   SECTION HERO
+============================================================ */
+/* Flexbox place le texte et la video cote a cote. flex-wrap permet
+   qu'ils passent l'un sous l'autre automatiquement sur mobile,
+   sans avoir besoin d'ecrire une media query. */
+.hero-grid {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Chaque enfant direct de .hero-grid grandit ou retrecit egalement
+   (flex: 1 1 320px), avec une largeur minimale de 320px avant de
+   passer a la ligne */
+.hero-grid > * {
+  flex: 1 1 320px;
+}
+
+.badge {
+  display: inline-block;
+  background: #dbe8ff;
+  color: #103a85;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hero-email {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #7a5600;
+  background: #fff3c4;
+  box-shadow: 0 6px 14px rgba(122, 86, 0, 0.18);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.hero-email:hover {
+  background: #ffe9a3;
+  box-shadow: 0 8px 18px rgba(122, 86, 0, 0.24);
+  transform: translateY(-1px);
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 1.07rem;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.media-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* aspect-ratio: 16/9 garde toujours le meme format d'image pour la
+   video, quelle que soit la largeur de l'ecran */
+.media-card iframe,
+.media-card video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
+   CARTES (formations, avantages, temoignages...)
+   Trois variantes qui partagent le meme style de base (.card) mais
+   avec une largeur flex differente selon le nombre de cartes par ligne
+============================================================ */
+.cards-4,
+.cards-3,
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.cards-4 .card {
+  flex: 1 1 220px; /* 4 cartes par ligne sur grand ecran */
+}
+
+.cards-3 .card {
+  flex: 1 1 280px; /* 3 cartes par ligne, un peu plus larges */
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.section-intro {
+  color: var(--muted);
+}
+
+.profile h3 {
+  color: var(--primary);
+}
+
+/* ============================================================
+   SECTION EVENEMENTS / VIDEOS
+============================================================ */
+.event-videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.video-card {
+  flex: 1 1 300px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.video-card h3 {
+  font-size: 1.02rem;
+  margin-bottom: 10px;
+}
+
+.video-card video {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  background: #0f3478;
+  object-fit: contain;
+}
+
+/* ============================================================
+   SECTION RESULTATS (chiffres cles)
+============================================================ */
+.stat-card {
+  flex: 1 1 180px;
+  background: #0f3478;
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--accent);
+}
+
+.stat-label {
+  margin: 0;
+}
+
+/* ============================================================
+   SECTION CONTACT + FORMULAIRE
+============================================================ */
+.cta {
+  background: linear-gradient(135deg, #082b66 0%, #0f458e 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Motif tres discret en fond pour donner un peu de relief au bleu uni */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 2px,
+    transparent 2px,
+    transparent 26px
+  );
+  pointer-events: none;
+}
+
+.cta .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* align-items: center pour que le bloc texte et le formulaire soient
+   alignes verticalement l'un par rapport a l'autre */
+.cta-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cta-grid > * {
+  flex: 1 1 320px;
+}
+
+.cta-texte h2 {
+  font-size: clamp(
+    1.9rem,
+    3vw,
+    2.6rem
+  ); /* plus grand pour un vrai role de H2 accrocheur */
+}
+
+/* Coordonnees avec icones, plus lisibles qu'une simple liste de paragraphes */
+.contact-infos {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-infos li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  background: rgba(247, 166, 0, 0.18);
+  border-radius: 50%;
+  font-size: 0.95rem;
+}
+
+/* Badges de confiance sous les coordonnees */
+.badges-confiance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.badge-confiance {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Formulaire : fond blanc pour un vrai contraste face au bleu du fond */
+.contact-form {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.contact-form label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.contact-form label:first-child {
+  margin-top: 0;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #1e293b;
+  font: inherit;
+  display: block;
+}
+
+.contact-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e293b' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(10, 61, 145, 0.15);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Vrai bouton principal : pleine largeur, contraste fort, bien visible */
+.btn-form {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 1.02rem;
+  text-align: center;
+}
+
+.reassurance {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Message affiché après l'envoi du formulaire */
+.contact-success {
+  text-align: center;
+  padding: 32px 24px;
+  background: #f0f6ff;
+  border: 1px solid rgba(10, 61, 145, 0.15);
+  border-radius: 12px;
+}
+
+.contact-success h3 {
+  margin: 10px 0;
+}
+
+/* ============================================================
+   PIED DE PAGE
+============================================================ */
+.site-footer {
+  background: #041f4b;
+  color: #d3def7;
+  padding: 18px 0;
+  text-align: center;
+}
+
+.back-to-top {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  background: #fff1b6;
+  color: #3f2b00;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top:hover {
+  background: #ffe37b;
+}
+
+/* ============================================================
+   RESPONSIVE MOBILE
+   En dessous de 780px : le menu et le bouton "Preinscription"
+   se cachent, le burger apparait a la place. Cliquer dessus
+   affiche le menu en dessous du header (voir script.js).
+============================================================ */
+@media (max-width: 780px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(10, 61, 145, 0.1);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(10, 61, 145, 0.06);
+  }
+
+  .btn-preinscription {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
+
+/* ============================================================
+   BARRE DE RECHERCHE (section Formations)
+============================================================ */
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 32px;
+  padding: 14px 18px;
+  border: 1px solid rgba(10, 61, 145, 0.2);
+  border-radius: 999px;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(10, 61, 145, 0.15);
+}
+
+.no-results {
+  text-align: center;
+  color: #64748b;
+  margin-top: 12px;
+}
+
+/* ============================================================
+   FAQ DEROULANTE
+============================================================ */
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid rgba(10, 61, 145, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  color: var(--primary);
+  transition: transform 0.2s ease;
+}
+
+/* Quand la question est ouverte (classe ajoutee par script.js) :
+   la reponse devient visible et le "+" tourne en "x" */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  transition: max-height 0.25s ease, padding 0.25s ease;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding: 0 20px 18px;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   CARTE GOOGLE MAPS (section Contact)
+============================================================ */
+.map-wrapper {
+  margin-top: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(10, 61, 145, 0.15);
+}
