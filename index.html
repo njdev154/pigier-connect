@@ -1,549 +1,591 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Pigier Yopougon : formations orientées métier (BTS, Licence), encadrement sérieux et insertion professionnelle à Abidjan." />
-    <title>Pigier Connect | Pigier Yopougon — Formations et Inscription</title>
-    <!-- Petite icone affichee dans l'onglet du navigateur -->
+    <meta name="description" content="Pigier Yopougon : BTS, Licences et Masters professionnels reconnus par le CAMES. Formations en gestion et en informatique à Abidjan depuis 1956." />
+    <meta name="theme-color" content="#0a3d91" />
+    <meta property="og:title" content="Pigier Yopougon | L'université des métiers" />
+    <meta property="og:description" content="BTS, Licences et Masters professionnels à Yopougon. Préinscription en ligne." />
+    <meta property="og:image" content="images/poster1.jpg" />
+    <title>Pigier Yopougon | Formations BTS, Licence, Master et préinscription</title>
+
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <!-- Polices Google Fonts : Poppins pour les titres, Lato pour le texte -->
+
+    <!-- Polices : Poppins pour les titres, Lato pour le texte -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Signale que JavaScript est actif : les animations peuvent préparer leurs éléments -->
+    <script>document.documentElement.classList.add("js");</script>
   </head>
 
-  <body>
-    <!-- ============================================================
-       EN-TETE / NAVIGATION
-       Reste fixe en haut de la page (position: sticky, voir CSS)
-       pour qu'on puisse naviguer facilement d'une section a l'autre.
-  ============================================================ -->
-    <header class="site-header">
+  <body class="is-loading">
+    <!-- Ecran de chargement : l'emblème tourne pendant que la page se prépare -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <img class="loader-emblem" src="images/embleme.png" alt="" />
+      <span class="loader-bar"><span></span></span>
+    </div>
+
+    <!-- Barre de progression de lecture (largeur pilotée par script.js) -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <!-- ===================== EN-TETE ===================== -->
+    <header class="site-header" id="header">
       <div class="container nav-wrap">
-        <a class="logo" href="#accueil">
-          <img src="logo2.png" alt="Logo de pigier" />
+        <a class="logo" href="#accueil" aria-label="Pigier, retour à l'accueil">
+          <img src="logo2.png" alt="Pigier Côte d'Ivoire" width="156" height="52" />
         </a>
-        <!-- Les liens du menu pointent vers les id des sections plus bas dans la page -->
-        <nav class="nav" aria-label="Navigation principale">
+
+        <nav class="nav" id="nav" aria-label="Navigation principale">
           <a href="#formations">Formations</a>
-          <a href="#eleves">Meilleurs élèves</a>
+          <a href="#histoire">Notre histoire</a>
+          <a href="#eleves">Élèves</a>
           <a href="#evenements">Événements</a>
-          <a href="#resultats">Résultats</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
+          <!-- Trait jaune qui glisse sous le lien actif -->
+          <span class="nav-indicator" aria-hidden="true"></span>
         </nav>
-        <a class="btn btn-primary btn-preinscription" href="#contact">Préinscription</a>
-        <!-- Bouton menu burger, visible seulement sur mobile (voir CSS) -->
-        <button class="burger" id="burger-btn" aria-label="Ouvrir le menu">
+
+        <a class="btn btn-primary btn-preinscription magnetic" href="#contact">Préinscription</a>
+
+        <button class="burger" id="burger-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
 
     <main id="accueil">
-      <!-- ============================================================
-         SECTION HERO (bandeau d'accueil)
-         Texte de presentation a gauche, video de presentation a droite.
-         Utilise Flexbox (.hero-grid dans le CSS) pour mettre les deux
-         blocs cote a cote, et l'un en dessous de l'autre sur mobile.
-    ============================================================ -->
-      <section class="hero section">
+      <!-- ===================== HERO ===================== -->
+      <section class="hero" id="contenu">
+        <!-- Formes décoratives qui bougent doucement en arrière-plan -->
+        <div class="hero-bg" aria-hidden="true">
+          <span class="blob blob-blue" data-parallax="0.15"></span>
+          <span class="blob blob-yellow" data-parallax="-0.1"></span>
+          <img class="hero-emblem" src="images/embleme.png" alt="" data-parallax="0.25" />
+        </div>
+
         <div class="container hero-grid">
-          <div>
-            <a class="hero-email" href="#contact">pigierci@pigierci.com</a>
-            <p class="badge">Universite des metiers</p>
-            <h1>Ton avenir professionnel commence a Pigier Yopougon</h1>
-            <p class="lead">
-              Des formations orientees metier, un encadrement serieux et des
-              resultats concrets pour t'aider a reussir tes etudes et ton
-              insertion professionnelle.
+          <div class="hero-text">
+            <a class="hero-email" href="mailto:pigierci@pigierci.com" data-reveal="up">pigierci@pigierci.com</a>
+            <p class="badge" data-reveal="up">Université des métiers · Campus Yopougon</p>
+
+            <!-- Chaque mot est découpé par script.js pour monter l'un après l'autre -->
+            <h1 class="split-title">Ton avenir professionnel commence à <span class="highlight">Pigier Yopougon</span></h1>
+
+            <p class="lead" data-reveal="up">
+              BTS, Licences et Masters professionnels reconnus par le CAMES.
+              Une école tournée vers l'entreprise depuis 1956.
             </p>
 
-            <div class="actions">
-              <a class="btn btn-primary" href="#formations"
-                >Voir les formations</a
-              >
-              <a class="btn btn-ghost" href="#contact">Je me preinscris</a>
+            <div class="actions" data-reveal="up">
+              <a class="btn btn-primary btn-lg magnetic" href="#formations">Voir les formations</a>
+              <a class="btn btn-ghost btn-lg magnetic" href="#contact">Je me préinscris</a>
             </div>
+
+            <ul class="hero-proof" data-reveal="up">
+              <li><strong>1956</strong> en Côte d'Ivoire</li>
+              <li><strong>3 000+</strong> étudiants</li>
+              <li><strong>CAMES</strong> diplômes reconnus</li>
+            </ul>
           </div>
 
-          <!-- Video de presentation de l'ecole -->
-          <div
-            class="media-card"
-            aria-label="Presentation video de Pigier Yopougon"
-          >
-            <video controls preload="metadata">
-              <source src="video/video1.mp4" type="video/mp4" />
-              Votre navigateur ne prend pas en charge la lecture video HTML5.
-            </video>
+          <!-- Vidéo du campus dans un cadre façon téléphone -->
+          <div class="hero-media" data-reveal="scale">
+            <div class="phone tilt">
+              <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/poster1.jpg" aria-label="Façade du campus Pigier Yopougon">
+                <source src="video/video1.mp4" type="video/mp4" />
+              </video>
+              <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Activer le son">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="sound-off" d="M16 9l5 6M21 9l-5 6"/><path class="sound-on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>
+              </button>
+            </div>
+            <span class="float-chip chip-1">Campus Yopougon</span>
+            <span class="float-chip chip-2"><strong>70%+</strong> de réussite au BTS</span>
+          </div>
+        </div>
+
+        <a class="scroll-hint" href="#atouts" aria-label="Descendre vers la suite"><span></span></a>
+      </section>
+
+      <!-- ===================== BANDEAU DEFILANT ===================== -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Finance Comptabilité</span><span>Gestion Commerciale</span><span>Informatique Développeur d'Application</span><span>Ressources Humaines et Communication</span><span>Assistanat de Direction</span><span>Tourisme et Hôtellerie</span><span>Marketing</span><span>Audit et Contrôle de Gestion</span><span>Réseaux Génie Logiciel</span><span>QHSE</span>
+        </div>
+      </div>
+
+      <!-- ===================== ATOUTS ===================== -->
+      <section class="section alt" id="atouts">
+        <div class="container">
+          <p class="eyebrow" data-reveal="up">Pourquoi Pigier</p>
+          <h2 class="section-title" data-reveal="up">Une école pensée pour l'emploi</h2>
+
+          <div class="cards-4" data-stagger>
+            <article class="card spotlight" data-reveal="up">
+              <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span>
+              <h3>Diplômes reconnus</h3>
+              <p>Accrédités par le Ministère de l'Enseignement Supérieur et par le CAMES.</p>
+            </article>
+            <article class="card spotlight" data-reveal="up">
+              <span class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+              <h3>Certification Microsoft</h3>
+              <p>Excel MOS dès la première année de Licence, dans un centre agréé.</p>
+            </article>
+            <article class="card spotlight" data-reveal="up">
+              <span class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>
+              <h3>Cabinet de placement</h3>
+              <p>Un service dédié aux stages, à l'emploi et au suivi des diplômés.</p>
+            </article>
+            <article class="card spotlight" data-reveal="up">
+              <span class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <h3>Jour, soir ou à distance</h3>
+              <p>Formation initiale, continue ou à distance, selon ton rythme.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION "POURQUOI CHOISIR PIGIER"
-         4 cartes cote a cote (cards-4 en CSS = display: flex + wrap,
-         pour qu'elles passent a la ligne automatiquement sur petit ecran)
-    ============================================================ -->
-      <section class="section alt">
+      <!-- ===================== CHIFFRES ===================== -->
+      <section class="section stats-section" id="resultats">
         <div class="container">
-          <h2>Pourquoi choisir Pigier Yopougon ?</h2>
-          <div class="cards-4">
-            <article class="card">
-              <h3>Formations professionnalisantes</h3>
-              <p>
-                Des programmes concus selon les besoins reels des entreprises.
-              </p>
+          <div class="stats" data-stagger>
+            <article class="stat-card" data-reveal="up">
+              <p class="stat-number" data-count="1956" data-format="plain">1956</p>
+              <p class="stat-label">Année d'implantation en Côte d'Ivoire</p>
             </article>
-            <article class="card">
-              <h3>Encadrement de proximite</h3>
-              <p>Un suivi personnalise pour accompagner chaque etudiant.</p>
+            <article class="stat-card" data-reveal="up">
+              <p class="stat-number" data-count="3000" data-suffix="+">3 000+</p>
+              <p class="stat-label">Étudiants accompagnés</p>
             </article>
-            <article class="card">
-              <h3>Experience pratique</h3>
-              <p>
-                Projets, stages, ateliers et activites pour apprendre en
-                faisant.
-              </p>
+            <article class="stat-card" data-reveal="up">
+              <p class="stat-number" data-count="70" data-suffix="%+">70%+</p>
+              <p class="stat-label">De réussite à l'examen national du BTS</p>
             </article>
-            <article class="card">
-              <h3>Insertion facilitee</h3>
-              <p>
-                Un meilleur pont entre les etudes et le monde professionnel.
-              </p>
+            <article class="stat-card" data-reveal="up">
+              <p class="stat-number" data-count="21">21</p>
+              <p class="stat-label">Diplômes : 6 BTS, 9 Licences, 6 Masters</p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION FORMATIONS
-         Meme principe de cartes que la section precedente, mais avec
-         7 filieres cette fois. Le id="formations" permet au menu du
-         haut de scroller directement ici.
-    ============================================================ -->
-      <section id="formations" class="section">
+      <!-- ===================== FORMATIONS ===================== -->
+      <section class="section" id="formations">
         <div class="container">
-          <h2>Nos meilleures formations</h2>
-          <p class="section-intro">
-            Decouvre nos filieres les plus demandees a Pigier Yopougon.
-          </p>
+          <p class="eyebrow" data-reveal="up">Catalogue</p>
+          <h2 class="section-title" data-reveal="up">Nos formations</h2>
+          <p class="section-intro" data-reveal="up">Du BTS au Bac+5, choisis ton niveau puis ta filière.</p>
 
-          <!-- Champ de recherche : filtre les cartes ci-dessous via script.js -->
-          <input
-            type="text"
-            id="formation-search"
-            class="search-input"
-            placeholder="Rechercher une formation (ex : marketing, informatique...)"
-          />
+          <!-- Filtres par niveau + recherche (gérés dans script.js) -->
+          <div class="catalog-tools" data-reveal="up">
+            <div class="chips" role="group" aria-label="Filtrer par niveau">
+              <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Tout <span class="chip-count"></span></button>
+              <button class="chip" type="button" data-filter="bts" aria-pressed="false">BTS <span class="chip-count"></span></button>
+              <button class="chip" type="button" data-filter="licence" aria-pressed="false">Licence <span class="chip-count"></span></button>
+              <button class="chip" type="button" data-filter="master" aria-pressed="false">Master <span class="chip-count"></span></button>
+            </div>
+            <label class="search">
+              <span class="sr-only">Rechercher une formation</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input type="search" id="formation-search" placeholder="Marketing, informatique, finance..." autocomplete="off" />
+            </label>
+          </div>
 
-          <div class="cards-4" id="formations-grid">
-            <article class="card" data-title="Tourisme et Hotellerie">
-              <h3>Tourisme et Hotellerie</h3>
-              <p>
-                Formation orientee vers l'accueil, la gestion hoteliere et les
-                metiers du tourisme.
-              </p>
+          <div class="formations-grid" id="formations-grid">
+            <!-- BTS : 2 ans après le Bac -->
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
+              <h3>Finance Comptabilité et Gestion d'Entreprise</h3>
+              <p>Comptabilité, fiscalité, analyse financière et gestion de l'entreprise.</p>
             </article>
-            <article class="card" data-title="Gestion Commerciale">
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
               <h3>Gestion Commerciale</h3>
-              <p>
-                Developpe les competences en vente, relation client et strategie
-                commerciale.
-              </p>
+              <p>Vente, négociation, relation client et stratégie commerciale.</p>
             </article>
-            <article class="card" data-title="Assistanat de Direction">
-              <h3>Assistanat de Direction</h3>
-              <p>
-                Preparation aux fonctions d'organisation, de suivi administratif
-                et d'appui managerial.
-              </p>
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
+              <h3>Informatique Développeur d'Application</h3>
+              <p>Algorithmique, développement web et mobile, bases de données.</p>
             </article>
-            <article class="card" data-title="Informatique Developpeur d'Application">
-              <h3>Informatique Developpeur d'Application</h3>
-              <p>
-                Conception d'applications, bases du developpement web et outils
-                numeriques.
-              </p>
-            </article>
-            <article class="card" data-title="Ressources Humaines et Communication">
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
               <h3>Ressources Humaines et Communication</h3>
-              <p>
-                Gestion du personnel, communication interne et pratiques RH
-                adaptees aux entreprises.
-              </p>
+              <p>Gestion du personnel, paie, communication interne et externe.</p>
             </article>
-            <article class="card" data-title="Finance Comptabilite et Gestion d'Entreprise">
-              <h3>Finance Comptabilite et Gestion d'Entreprise</h3>
-              <p>
-                Comptabilite, analyse financiere et pilotage des activites de
-                l'entreprise.
-              </p>
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
+              <h3>Assistanat de Direction</h3>
+              <p>Organisation, suivi administratif et appui au management.</p>
             </article>
-            <article class="card" data-title="Marketing">
+            <article class="formation spotlight" data-level="bts">
+              <span class="level">BTS · 2 ans</span>
+              <h3>Tourisme et Hôtellerie</h3>
+              <p>Accueil, gestion hôtelière et métiers du tourisme.</p>
+            </article>
+
+            <!-- Licences professionnelles : 3 ans, 180 crédits LMD -->
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Audit et Contrôle de Gestion</h3>
+              <p>Contrôle interne, tableaux de bord et pilotage de la performance.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Comptabilité Finance</h3>
+              <p>Comptabilité approfondie, finance d'entreprise et fiscalité.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Réseaux Génie Logiciel</h3>
+              <p>Développement logiciel, administration réseau et systèmes.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Assistanat de Direction</h3>
+              <p>Gestion de projets, communication professionnelle et organisation.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Communication et Développement des Marques</h3>
+              <p>Stratégie de marque, communication digitale et événementielle.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Gestion des Entreprises</h3>
+              <p>Management, gestion financière et développement des PME.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
               <h3>Marketing</h3>
-              <p>
-                Etude de marche, strategie de communication et promotion des
-                offres.
-              </p>
+              <p>Étude de marché, marketing digital et promotion des offres.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>QHSE</h3>
+              <p>Qualité, Hygiène, Sécurité et Environnement en entreprise.</p>
+            </article>
+            <article class="formation spotlight" data-level="licence">
+              <span class="level">Licence pro · 3 ans</span>
+              <h3>Gestion des Ressources Humaines</h3>
+              <p>Recrutement, formation, droit social et gestion des carrières.</p>
+            </article>
+
+            <!-- Masters professionnels : Bac+5 -->
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Administration des Entreprises</h3>
+              <p>Direction générale, stratégie et management des organisations.</p>
+            </article>
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Audit et Contrôle de Gestion</h3>
+              <p>Audit financier, gestion des risques et contrôle de gestion avancé.</p>
+            </article>
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Finance Comptabilité</h3>
+              <p>Finance de marché, consolidation et expertise comptable.</p>
+            </article>
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Fiscalité et Droit des Affaires</h3>
+              <p>Fiscalité des entreprises, droit OHADA et conseil juridique.</p>
+            </article>
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Marketing</h3>
+              <p>Direction marketing, stratégie digitale et gestion de marque.</p>
+            </article>
+            <article class="formation spotlight" data-level="master">
+              <span class="level">Master pro · Bac+5</span>
+              <h3>Génie Informatique</h3>
+              <p>Architecture logicielle, systèmes d'information et gestion de projets IT.</p>
             </article>
           </div>
 
-          <!-- Message affiché quand la recherche ne donne aucun résultat -->
-          <p id="no-results" class="no-results" style="display: none;">
-            Aucune formation ne correspond à ta recherche.
-          </p>
+          <p id="no-results" class="no-results" hidden>Aucune formation ne correspond à ta recherche.</p>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION MEILLEURS ELEVES
-         3 temoignages presentes comme des cartes (cards-3 = memes
-         cartes que cards-4, juste une taille flex differente en CSS
-         pour qu'il y en ait 3 par ligne au lieu de 4)
-    ============================================================ -->
-      <section id="eleves" class="section alt">
+      <!-- ===================== HISTOIRE (frise) ===================== -->
+      <section class="section alt" id="histoire">
         <div class="container">
-          <h2>Nos meilleurs eleves</h2>
-          <div class="cards-3">
-            <article class="card profile">
-              <h3>Minycan K. - Major en IDA</h3>
-              <p>
-                "Pigier m'a aidee a prendre confiance et a viser l'excellence."
-              </p>
-            </article>
-            <article class="card profile">
-              <h3>Koffi M. - Distinction en Marketing</h3>
-              <p>
-                "Les projets pratiques m'ont prepare a la realite du terrain."
-              </p>
-            </article>
-            <article class="card profile">
-              <h3>Junior N. - Meilleure progression RH</h3>
-              <p>"Le suivi des enseignants a fait toute la difference."</p>
-            </article>
-          </div>
+          <p class="eyebrow" data-reveal="up">Depuis 1956</p>
+          <h2 class="section-title" data-reveal="up">Notre histoire</h2>
+
+          <!-- La ligne bleue se remplit au fil du défilement -->
+          <ol class="timeline" id="timeline">
+            <li class="timeline-line" aria-hidden="true"><span></span></li>
+            <li class="step" data-reveal="left"><span class="year">1956</span><p>Les Cours Pigier s'installent à Abidjan.</p></li>
+            <li class="step" data-reveal="right"><span class="year">1970</span><p>Préparation aux Baccalauréats technologiques.</p></li>
+            <li class="step" data-reveal="left"><span class="year">1987</span><p>Lancement des premiers BTS.</p></li>
+            <li class="step" data-reveal="right"><span class="year">1994</span><p>Ouverture des formations Bac+3 et Bac+5.</p></li>
+            <li class="step" data-reveal="left"><span class="year">2017</span><p>Lancement de la plateforme de formation à distance.</p></li>
+            <li class="step" data-reveal="right"><span class="year">2023</span><p>Ouverture du campus de Yopougon.</p></li>
+          </ol>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION EVENEMENTS
-         D'abord 3 cartes de description, puis en dessous les videos
-         correspondantes dans des cartes separees (.event-videos).
-         Les videos sont en "muted" + "data-hover-play" pour un futur
-         effet de lecture au survol en JavaScript (pas encore fait ici).
-    ============================================================ -->
-      <section id="evenements" class="section">
+      <!-- ===================== ELEVES ===================== -->
+      <section class="section" id="eleves">
         <div class="container">
-          <h2>Meilleurs evenements</h2>
-          <div class="cards-3">
-            <article class="card">
-              <h3>Journee Portes Ouvertes</h3>
-              <p>
-                Decouverte des filieres, rencontres avec l'equipe et visite du
-                campus.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Participation a une Emission Televisee</h3>
-              <p>
-                Intervention des clubs Communication, Entrepreneuriat et
-                Informatique pour presenter leurs projets et leurs talents.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Journee de l'Orientation Bachelier</h3>
-              <p>
-                Accompagnement des nouveaux bacheliers pour choisir la bonne
-                filiere et preparer leur admission.
-              </p>
-            </article>
-          </div>
+          <p class="eyebrow" data-reveal="up">Ils réussissent</p>
+          <h2 class="section-title" data-reveal="up">Nos meilleurs élèves</h2>
 
-          <!--
-          VIDEOS DES EVENEMENTS:
-          - Place tes videos dans le dossier du projet.
-        -->
-          <div class="event-videos">
-            <article class="video-card">
-              <h3>Video - Journee Portes Ouvertes</h3>
-              <video controls preload="metadata" muted data-hover-play>
-                <source src="video/video2.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la lecture video HTML5.
-              </video>
+          <div class="cards-3" data-stagger>
+            <article class="card testimonial spotlight" data-reveal="up">
+              <svg class="quote" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h5v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h5v12H19z"/></svg>
+              <p>Pigier m'a aidée à prendre confiance et à viser l'excellence.</p>
+              <footer><span class="avatar">MK</span><span><strong>Minycan K.</strong><small>Major en IDA</small></span></footer>
             </article>
-
-            <article class="video-card">
-              <h3>Video - Emission Televisee des Clubs</h3>
-              <video controls preload="metadata" muted data-hover-play>
-                <source src="video/video4.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la lecture video HTML5.
-              </video>
+            <article class="card testimonial spotlight" data-reveal="up">
+              <svg class="quote" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h5v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h5v12H19z"/></svg>
+              <p>Les projets pratiques m'ont préparé à la réalité du terrain.</p>
+              <footer><span class="avatar">KM</span><span><strong>Koffi M.</strong><small>Distinction en Marketing</small></span></footer>
             </article>
-
-            <article class="video-card">
-              <h3>Video - Journee de l'Orientation Bachelier</h3>
-              <video controls preload="metadata" muted data-hover-play>
-                <source src="video/video3.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la lecture video HTML5.
-              </video>
+            <article class="card testimonial spotlight" data-reveal="up">
+              <svg class="quote" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4 1 12 0l1 4c-4 1-6 4-6 8h5v12H0zm19 0V14c0-8 4-13 12-14l1 4c-4 1-6 4-6 8h5v12H19z"/></svg>
+              <p>Le suivi des enseignants a fait toute la différence.</p>
+              <footer><span class="avatar">JN</span><span><strong>Junior N.</strong><small>Meilleure progression RH</small></span></footer>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION RESULTATS
-         4 chiffres cles mis en avant. Le fond bleu fonce (.stat-card)
-         est defini en CSS pour bien faire ressortir les chiffres.
-    ============================================================ -->
-      <section id="resultats" class="section alt">
+      <!-- ===================== EVENEMENTS ===================== -->
+      <section class="section alt" id="evenements">
         <div class="container">
-          <h2>Des resultats concrets</h2>
-          <div class="stats">
-            <article class="stat-card">
-              <p class="stat-number">92%</p>
-              <p class="stat-label">Taux de reussite</p>
+          <p class="eyebrow" data-reveal="up">Vie du campus</p>
+          <h2 class="section-title" data-reveal="up">Nos événements</h2>
+          <p class="section-intro" data-reveal="up">Survole une vidéo pour l'aperçu, clique pour la regarder avec le son.</p>
+
+          <!-- Une carte = un événement + sa vidéo. data-src sert à la fenêtre vidéo -->
+          <div class="event-videos" data-stagger>
+            <article class="video-card" data-reveal="up">
+              <button class="video-thumb" type="button" data-src="video/video2.mp4" data-title="Journée Portes Ouvertes" aria-label="Regarder la vidéo Journée Portes Ouvertes">
+                <video muted loop playsinline preload="none" poster="images/poster2.jpg"><source src="video/video2.mp4" type="video/mp4" /></video>
+                <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              </button>
+              <div class="video-body">
+                <span class="tag">Admissions</span>
+                <h3>Journée Portes Ouvertes</h3>
+                <p>Découverte des filières, rencontre avec l'équipe et visite du campus.</p>
+              </div>
             </article>
-            <article class="stat-card">
-              <p class="stat-number">87%</p>
-              <p class="stat-label">Insertion professionnelle</p>
+
+            <article class="video-card" data-reveal="up">
+              <button class="video-thumb" type="button" data-src="video/video4.mp4" data-title="Émission télévisée des clubs" aria-label="Regarder la vidéo Émission télévisée des clubs">
+                <video muted loop playsinline preload="none" poster="images/poster4.jpg"><source src="video/video4.mp4" type="video/mp4" /></video>
+                <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              </button>
+              <div class="video-body">
+                <span class="tag">Clubs</span>
+                <h3>Émission télévisée</h3>
+                <p>Les clubs Communication, Entrepreneuriat et Informatique présentent leurs projets.</p>
+              </div>
             </article>
-            <article class="stat-card">
-              <p class="stat-number">1200+</p>
-              <p class="stat-label">Diplomes accompagnes</p>
-            </article>
-            <article class="stat-card">
-              <p class="stat-number">35+</p>
-              <p class="stat-label">Partenaires</p>
+
+            <article class="video-card" data-reveal="up">
+              <button class="video-thumb" type="button" data-src="video/video3.mp4" data-title="Journée de l'Orientation Bachelier" aria-label="Regarder la vidéo Journée de l'Orientation Bachelier">
+                <video muted loop playsinline preload="none" poster="images/poster3.jpg"><source src="video/video3.mp4" type="video/mp4" /></video>
+                <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              </button>
+              <div class="video-body">
+                <span class="tag">Orientation</span>
+                <h3>Orientation Bachelier</h3>
+                <p>Aider les nouveaux bacheliers à choisir la bonne filière.</p>
+              </div>
             </article>
           </div>
-          <!--
-          IMPORTANT:
-          Remplace ces chiffres par les vraies statistiques de Pigier Yopougon.
-        --></div>
+        </div>
       </section>
 
-      <!-- ============================================================
-         SECTION FAQ
-         Chaque question est un bouton : cliquer dessus affiche ou
-         cache la reponse juste en dessous (voir script.js).
-    ============================================================ -->
-      <section id="faq" class="section alt">
+      <!-- ===================== FAQ ===================== -->
+      <section class="section" id="faq">
         <div class="container">
-          <h2>Questions frequentes</h2>
+          <p class="eyebrow" data-reveal="up">Tu te poses des questions ?</p>
+          <h2 class="section-title" data-reveal="up">Questions fréquentes</h2>
 
-          <div class="faq-list">
-            <div class="faq-item">
-              <button class="faq-question">
-                Quelles sont les conditions d'admission ?
-                <span class="faq-icon">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  L'admission se fait sur dossier (niveau Bac ou equivalent
-                  selon la filiere) et un entretien de motivation avec l'equipe
-                  pedagogique.
-                </p>
-              </div>
+          <div class="faq-list" data-stagger>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Quelles sont les conditions d'admission ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>Le BTS est accessible après le Bac. L'admission se fait sur étude du dossier et entretien de motivation.</p></div></div>
             </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                Combien de temps dure une formation ?
-                <span class="faq-icon">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Cela depend de la filiere et du diplome vise (BTS, Licence) :
-                  compte generalement entre 2 et 3 ans.
-                </p>
-              </div>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Combien de temps dure une formation ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>2 ans pour un BTS, 3 ans pour une Licence professionnelle (180 crédits LMD), puis 2 ans pour un Master.</p></div></div>
             </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                Y a-t-il un accompagnement pour trouver un stage ?
-                <span class="faq-icon">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Oui, l'ecole accompagne les etudiants dans leur recherche de
-                  stage grace a son reseau de partenaires entreprises.
-                </p>
-              </div>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Les diplômes sont-ils reconnus ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>Oui. Ils sont accrédités par le Ministère de l'Enseignement Supérieur et de la Recherche Scientifique et par le CAMES.</p></div></div>
             </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                Comment se preinscrire ?
-                <span class="faq-icon">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  En remplissant le formulaire en bas de cette page, ou en
-                  contactant directement l'ecole par telephone ou WhatsApp.
-                </p>
-              </div>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Peut-on continuer après le BTS ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>Oui, en Licence puis en Master, en formation initiale, continue ou à distance.</p></div></div>
+            </div>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Y a-t-il un accompagnement pour les stages ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>Le cabinet de placement de Pigier aide les étudiants à trouver stages et emplois, et suit les diplômés.</p></div></div>
+            </div>
+            <div class="faq-item" data-reveal="up">
+              <button class="faq-question" type="button">Comment se préinscrire ?<span class="faq-icon" aria-hidden="true"></span></button>
+              <div class="faq-answer"><div><p>Remplis le formulaire en bas de page : ta demande est envoyée sur WhatsApp en un clic. Tu peux aussi appeler le standard.</p></div></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============================================================
-         SECTION CONTACT / APPEL A L'ACTION FINAL
-         Texte + coordonnees a gauche, formulaire de preinscription a
-         droite (cta-grid, encore du Flexbox pour la mise en page).
-         Le formulaire est uniquement cote HTML : il ne bascule pas
-         encore les donnees quelque part (voir commentaire plus bas).
-    ============================================================ -->
-      <section id="contact" class="section cta">
+      <!-- ===================== CONTACT ===================== -->
+      <section class="section cta" id="contact">
         <div class="container cta-grid">
           <div class="cta-texte">
-            <h2>Prêt(e) à rejoindre Pigier Yopougon ?</h2>
-            <p>
-              Fais le premier pas dès aujourd'hui. Notre équipe peut t'aider à
-              choisir ta filière et lancer ta préinscription.
-            </p>
+            <h2 data-reveal="up">Prêt(e) à rejoindre Pigier Yopougon ?</h2>
+            <p data-reveal="up">Fais le premier pas aujourd'hui. Un conseiller t'aide à choisir ta filière.</p>
 
-            <!-- Coordonnees avec petites icones pour aerer et hierarchiser visuellement -->
-            <ul class="contact-infos">
-              <li>
-                <span class="contact-icone">📞</span
-                ><strong>Téléphone :</strong> +225 01 61 50 62 96
+            <ul class="contact-infos" data-stagger>
+              <li data-reveal="left">
+                <span class="contact-icone"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+                <span><strong>Standard</strong><a href="tel:+2250707057818">+225 07 07 05 78 18</a></span>
               </li>
-              <li>
-                <span class="contact-icone">💬</span
-                ><strong>WhatsApp :</strong> +225 01 00 29 25 73
+              <li data-reveal="left">
+                <span class="contact-icone"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/></svg></span>
+                <span><strong>WhatsApp</strong><a href="https://wa.me/2250708334539" target="_blank" rel="noopener">+225 07 08 33 45 39</a></span>
               </li>
-              <li>
-                <span class="contact-icone">📍</span
-                ><strong>Adresse :</strong> Yopougon, Abidjan
+              <li data-reveal="left">
+                <span class="contact-icone"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <span><strong>Email</strong><a href="mailto:pigierci@pigierci.com">pigierci@pigierci.com</a></span>
+              </li>
+              <li data-reveal="left">
+                <span class="contact-icone"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+                <span><strong>Adresse</strong>Ananeraie, proche Mamie Adjoua, CHU-Extension, Yopougon</span>
               </li>
             </ul>
 
-            <!-- Badges de confiance : rassurent rapidement sans lire tout le texte -->
-            <div class="badges-confiance">
-              <span class="badge-confiance">✓ Inscription rapide</span>
-              <span class="badge-confiance">✓ Accompagnement personnalisé</span>
-              <span class="badge-confiance">✓ Diplômes homologués</span>
+            <div class="badges-confiance" data-reveal="up">
+              <span class="badge-confiance">Inscription rapide</span>
+              <span class="badge-confiance">Conseiller dédié</span>
+              <span class="badge-confiance">Diplômes reconnus CAMES</span>
             </div>
 
-            <!-- Carte Google Maps pour localiser l'ecole -->
-            <!-- Coordonnees exactes de PIGIER Cote d'Ivoire, Antenne Yopougon -->
-            <div class="map-wrapper">
-              <iframe
-                src="https://www.google.com/maps?q=5.3623734,-4.0914334&z=17&output=embed"
-                width="100%"
-                height="220"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Localisation de Pigier Yopougon sur Google Maps"
-              ></iframe>
+            <div class="map-wrapper" data-reveal="up">
+              <iframe src="https://www.google.com/maps?q=5.3623734,-4.0914334&z=17&output=embed" width="100%" height="220" style="border: 0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localisation de Pigier Yopougon"></iframe>
             </div>
           </div>
 
-          <!--
-          Formulaire de preinscription.
-          Sans backend, on ne peut pas encore envoyer un vrai email :
-          le JS (script.js) affiche juste une confirmation a l'ecran.
-          Pour un envoi reel plus tard : service gratuit type Formspree
-          (il suffit de changer l'attribut "action" du formulaire).
-        -->
-          <form id="contact-form" class="contact-form" action="#" method="post">
-            <label for="nom">Nom complet</label>
-            <input
-              id="nom"
-              name="nom"
-              type="text"
-              placeholder="Ex : Kouassi Aya"
-              required
-            />
+          <!-- Formulaire : valide les champs puis prépare le message WhatsApp -->
+          <div class="form-zone" data-reveal="right">
+            <form id="contact-form" class="contact-form" novalidate>
+              <h3>Préinscription en ligne</h3>
 
-            <label for="tel">Téléphone</label>
-            <input
-              id="tel"
-              name="telephone"
-              type="tel"
-              placeholder="Ex : +225 01 02 03 04 05"
-              required
-            />
+              <div class="field">
+                <label for="nom">Nom complet</label>
+                <input id="nom" name="nom" type="text" placeholder="Ex : Kouassi Aya" autocomplete="name" required minlength="3" />
+                <span class="error" aria-live="polite"></span>
+              </div>
 
-            <label for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Ex : nom@email.com"
-              required
-            />
+              <div class="field">
+                <label for="tel">Téléphone</label>
+                <input id="tel" name="telephone" type="tel" placeholder="Ex : 07 00 00 00 00" autocomplete="tel" inputmode="tel" required pattern="^(\+?225)?\s?0[0-9](\s?[0-9]{2}){4}$" />
+                <span class="error" aria-live="polite"></span>
+              </div>
 
-            <label for="formation">Formation souhaitée</label>
-            <select id="formation" name="formation" required>
-              <option value="" selected disabled>Choisis une filière</option>
-              <option value="Tourisme et Hotellerie">
-                Tourisme et Hôtellerie
-              </option>
-              <option value="Gestion Commerciale">Gestion Commerciale</option>
-              <option value="Assistanat de Direction">
-                Assistanat de Direction
-              </option>
-              <option value="Informatique Developpeur d'Application">
-                Informatique Développeur d'Application
-              </option>
-              <option value="Ressources Humaines et Communication">
-                Ressources Humaines et Communication
-              </option>
-              <option value="Finance Comptabilite et Gestion d'Entreprise">
-                Finance Comptabilité et Gestion d'Entreprise
-              </option>
-              <option value="Marketing">Marketing</option>
-            </select>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="Ex : nom@email.com" autocomplete="email" required />
+                <span class="error" aria-live="polite"></span>
+              </div>
 
-            <label for="message">Message (optionnel)</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="4"
-              placeholder="Une question avant de te préinscrire ?"
-            ></textarea>
+              <div class="field">
+                <label for="formation">Formation souhaitée</label>
+                <select id="formation" name="formation" required>
+                  <option value="" selected disabled>Choisis une filière</option>
+                  <optgroup label="BTS">
+                    <option>BTS Finance Comptabilité et Gestion d'Entreprise</option>
+                    <option>BTS Gestion Commerciale</option>
+                    <option>BTS Informatique Développeur d'Application</option>
+                    <option>BTS Ressources Humaines et Communication</option>
+                    <option>BTS Assistanat de Direction</option>
+                    <option>BTS Tourisme et Hôtellerie</option>
+                  </optgroup>
+                  <optgroup label="Licence / Master">
+                    <option>Licence professionnelle</option>
+                    <option>Master professionnel</option>
+                  </optgroup>
+                </select>
+                <span class="error" aria-live="polite"></span>
+              </div>
 
-            <button class="btn btn-primary btn-form" type="submit">
-              Lancer ma préinscription
-            </button>
-            <p class="reassurance">
-              Gratuit et sans engagement • Réponse sous 24h
-            </p>
-          </form>
+              <div class="field">
+                <label for="message">Message (optionnel)</label>
+                <textarea id="message" name="message" rows="3" placeholder="Une question avant de te préinscrire ?"></textarea>
+              </div>
 
-          <!-- Message affiché par le JS une fois le formulaire validé -->
-          <div id="contact-success" class="contact-success" style="display: none;">
-            <p class="badge">Préinscription reçue</p>
-            <h3>Merci <span id="success-nom"></span> !</h3>
-            <p>
-              Ta demande a bien été enregistrée. Notre équipe te contactera
-              sous 24h pour la suite de ton inscription.
-            </p>
+              <button class="btn btn-primary btn-form" type="submit">
+                <span class="btn-label">Lancer ma préinscription</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+              <p class="reassurance">Gratuit et sans engagement</p>
+            </form>
+
+            <!-- Affiché après validation, avec la coche animée -->
+            <div id="contact-success" class="contact-success" hidden role="status" aria-live="polite">
+              <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg>
+              <h3>Merci <span id="success-nom"></span> !</h3>
+              <p>Ta demande est prête. Envoie-la sur WhatsApp pour qu'un conseiller te recontacte.</p>
+              <a class="btn btn-primary" id="success-link" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
+              <button class="btn btn-ghost" type="button" id="new-request">Nouvelle demande</button>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!--PIED DE PAGE -->
+    <!-- ===================== PIED DE PAGE ===================== -->
     <footer class="site-footer">
-      <div class="container">
-        <p>© 2026 Pigier Yopougon - Tous droits réservés.</p>
-        <a class="back-to-top" href="#accueil">Retour en haut</a>
+      <div class="container footer-grid">
+        <div>
+          <img class="footer-logo" src="logo2.png" alt="Pigier Côte d'Ivoire" width="150" height="50" />
+          <p>L'université des métiers. Campus de Yopougon, Abidjan.</p>
+        </div>
+        <nav aria-label="Liens du pied de page">
+          <strong>Navigation</strong>
+          <a href="#formations">Formations</a>
+          <a href="#histoire">Notre histoire</a>
+          <a href="#evenements">Événements</a>
+          <a href="#contact">Préinscription</a>
+        </nav>
+        <div>
+          <strong>Contact</strong>
+          <a href="tel:+2252720303500">+225 27 20 30 35 00</a>
+          <a href="tel:+2250747702700">+225 07 47 70 27 00</a>
+          <a href="https://www.pigierci.com/" target="_blank" rel="noopener">pigierci.com</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© <span id="year">2026</span> Pigier Yopougon</p>
+        <p>Conçu et développé par N'Goran Junior Charmel Privat</p>
       </div>
     </footer>
+
+    <!-- Bouton retour en haut avec anneau de progression -->
+    <a class="back-to-top" id="back-to-top" href="#accueil" aria-label="Retour en haut">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="ring-bg" cx="24" cy="24" r="21"/><circle class="ring" cx="24" cy="24" r="21"/><path class="arrow" d="M24 31V17M18 23l6-6 6 6"/></svg>
+    </a>
+
+    <!-- Fenêtre vidéo plein écran (remplie par script.js) -->
+    <dialog class="lightbox" id="lightbox" aria-label="Lecteur vidéo">
+      <button class="lightbox-close" type="button" aria-label="Fermer la vidéo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <video controls playsinline></video>
+      <p class="lightbox-title"></p>
+    </dialog>
+
     <script src="script.js"></script>
   </body>
 </html>
