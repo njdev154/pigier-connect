@@ -1,83 +1,187 @@
-// =============================================
-// Pigier Yopougon — Script du menu mobile
-// =============================================
+/* Interactions simples et accessibles du site Pigier Connect */
 
 const burgerBtn = document.querySelector("#burger-btn");
 const nav = document.querySelector(".nav");
 
-if (burgerBtn) {
+// Menu mobile : état lisible au clavier et fermeture avec Echap
+if (burgerBtn && nav) {
+  burgerBtn.setAttribute("aria-expanded", "false");
+  if (!nav.id) nav.id = "site-navigation";
+  burgerBtn.setAttribute("aria-controls", nav.id);
+
+  const closeMenu = () => {
+    nav.classList.remove("open");
+    burgerBtn.setAttribute("aria-expanded", "false");
+  };
+
   burgerBtn.addEventListener("click", () => {
-    nav.classList.toggle("open");
+    const isOpen = nav.classList.toggle("open");
+    burgerBtn.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("open")) {
+      closeMenu();
+      burgerBtn.focus();
+    }
   });
 }
 
-// Ferme le menu automatiquement quand on clique sur un lien
-// (utile car les liens du menu pointent vers des sections de la page)
-document.querySelectorAll(".nav a").forEach((link) => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("open");
-  });
-});
-
-// --- Formulaire de préinscription ---
-// Sans backend, on affiche une confirmation à l'écran plutôt que
-// d'envoyer réellement les données (voir commentaire dans le HTML).
+// Le formulaire reste une démonstration tant qu aucun service ne le reçoit
 const contactForm = document.querySelector("#contact-form");
+const contactSuccess = document.querySelector("#contact-success");
 
 if (contactForm) {
+  const notice = document.createElement("p");
+  notice.className = "demo-notice";
+  notice.textContent = "Mode démonstration : aucune demande réelle n’est envoyée ni enregistrée.";
+  notice.setAttribute("role", "note");
+  contactForm.insertAdjacentElement("beforebegin", notice);
+
   contactForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // on empêche le rechargement de la page
+    event.preventDefault();
+    if (!contactForm.reportValidity()) return;
 
-    const nom = document.querySelector("#nom").value;
+    const nameField = document.querySelector("#nom");
+    const successName = document.querySelector("#success-nom");
+    if (nameField && successName) successName.textContent = nameField.value.trim();
 
+    contactForm.hidden = true;
     contactForm.style.display = "none";
-    document.querySelector("#contact-success").style.display = "block";
-    document.querySelector("#success-nom").textContent = nom;
+    if (contactSuccess) {
+      contactSuccess.hidden = false;
+      contactSuccess.style.display = "block";
+      contactSuccess.setAttribute("role", "status");
+      contactSuccess.setAttribute("aria-live", "polite");
+      const message = document.createElement("p");
+      message.className = "demo-notice";
+      message.textContent = "Simulation uniquement : vos informations n’ont pas été transmises à Pigier.";
+      contactSuccess.append(message);
+    }
   });
 }
 
-// --- FAQ déroulante ---
-// Chaque clic sur une question ouvre/ferme sa réponse juste en dessous.
-document.querySelectorAll(".faq-question").forEach((button) => {
+// FAQ : synchronise le bouton et sa réponse pour les lecteurs d écran
+const faqButtons = document.querySelectorAll(".faq-question");
+faqButtons.forEach((button, index) => {
+  const answer = button.parentElement?.querySelector(".faq-answer");
+  if (!answer) return;
+  if (!answer.id) answer.id = `faq-answer-${index + 1}`;
+  button.setAttribute("aria-controls", answer.id);
+  button.setAttribute("aria-expanded", String(button.parentElement.classList.contains("open")));
+
   button.addEventListener("click", () => {
-    const item = button.parentElement;
-    item.classList.toggle("open");
+    const isOpen = button.parentElement.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(isOpen));
   });
 });
 
-// --- Filtre de recherche des formations ---
-// À chaque frappe, on compare le texte tapé au titre de chaque carte
-// (data-title) et on cache celles qui ne correspondent pas.
+// Recherche des formations, avec prise en charge des accents français
 const searchInput = document.querySelector("#formation-search");
 const formationCards = document.querySelectorAll("#formations-grid .card");
 const noResults = document.querySelector("#no-results");
+const normalizeText = (value) => value.toLocaleLowerCase("fr").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
 
 if (searchInput) {
+  searchInput.setAttribute("aria-label", "Rechercher une formation");
   searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
+    const query = normalizeText(searchInput.value.trim());
     let visibleCount = 0;
-
     formationCards.forEach((card) => {
-      const title = card.dataset.title.toLowerCase();
-      const match = title.includes(query);
-      card.style.display = match ? "" : "none";
-      if (match) visibleCount++;
+      const text = normalizeText(card.dataset.title || card.textContent);
+      const matches = text.includes(query);
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
     });
-
-    noResults.style.display = visibleCount === 0 ? "block" : "none";
+    if (noResults) {
+      noResults.hidden = visibleCount !== 0;
+      noResults.setAttribute("role", "status");
+    }
   });
 }
 
-// --- Vidéos des événements : lecture automatique au survol ---
-// Les vidéos ayant l'attribut data-hover-play se lancent quand la
-// souris passe dessus, et se remettent en pause au départ de la souris.
-document.querySelectorAll("[data-hover-play]").forEach((video) => {
-  video.addEventListener("mouseenter", () => {
-    video.play();
+// Apparition au défilement : léger mouvement dans les couleurs du site
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealItems = document.querySelectorAll(".section h2, .section-intro, .cards-4 .card, .cards-3 .card, .event-videos .video-card, .stat-card");
+
+if ("IntersectionObserver" in window && !reducedMotion) {
+  revealItems.forEach((item) => item.classList.add("reveal"));
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealItems.forEach((item, index) => {
+    item.style.setProperty("--reveal-delay", `${(index % 4) * 70}ms`);
+    revealObserver.observe(item);
+  });
+} else {
+  revealItems.forEach((item) => item.classList.add("is-visible"));
+}
+
+// Les chiffres de démonstration montent une fois à l arrivée sur les résultats
+const results = document.querySelector("#resultats");
+const statNumbers = results?.querySelectorAll(".stat-number");
+
+if (results && statNumbers?.length) {
+  const note = document.createElement("p");
+  note.className = "demo-notice stats-demo-note";
+  note.textContent = "Chiffres fictifs utilisés pour la démonstration du site.";
+  results.querySelector(".container")?.append(note);
+
+  const animateStats = () => statNumbers.forEach((element) => {
+    if (element.dataset.animated === "true") return;
+    element.dataset.animated = "true";
+    const original = element.textContent.trim();
+    const target = Number(original.replace(/[^0-9]/g, ""));
+    if (!Number.isFinite(target)) return;
+    const suffix = original.replace(/[0-9.,\\s]/g, "");
+    const start = performance.now();
+    const duration = 1200;
+
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = `${Math.round(target * eased).toLocaleString("fr-FR")}${suffix}`;
+      if (progress < 1) requestAnimationFrame(update);
+      else element.textContent = original;
+    };
+    requestAnimationFrame(update);
   });
 
-  video.addEventListener("mouseleave", () => {
-    video.pause();
-    video.currentTime = 0;
-  });
-});
+  if ("IntersectionObserver" in window && !reducedMotion) {
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        animateStats();
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    statsObserver.observe(results);
+  } else {
+    animateStats();
+  }
+}
+
+// Navigation : souligne le lien de la section visible
+const navLinks = [...document.querySelectorAll(".nav a[href^=\"#\"]")];
+const navSections = navLinks.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+if ("IntersectionObserver" in window && navSections.length && !reducedMotion) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => {
+        const active = link.getAttribute("href") === `#${entry.target.id}`;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    });
+  }, { rootMargin: "-25% 0px -60% 0px" });
+  navSections.forEach((section) => sectionObserver.observe(section));
+}
+
+// Les vidéos restent au contrôle du visiteur : aucune lecture automatique.
